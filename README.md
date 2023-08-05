@@ -1,3 +1,2 @@
-# BASE PARA PROYECTOS MVC
-Base para programacion MVC con php 
-Curso de ingenieria de software
+# EXAMEN FINAL
+EXAMEN FINAL DEL CURSO DE INF. DE SOFT.2
