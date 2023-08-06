@@ -34,7 +34,10 @@
                         <ul class="dropdown-menu  dropdown-menu-dark "id="dropwdownRevision" style="margin: 0;">
                             <!-- <h6 class="dropdown-header">Información</h6> -->
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Subitem</a>
+                                <a class="dropdown-item nav-link text-white " href="/final_IS2_moralesbatz/grados"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>GRADOS</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/final_IS2_moralesbatz/materias"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>MATERIAS</a>
                             </li>
                         
                     

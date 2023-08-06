@@ -1,17 +1,17 @@
-<h1 class="text-center">Formulario de materias</h1>
+<h1 class="text-center">Formulario de grados</h1>
 <div class="row justify-content-center mb-5">
-    <form class="col-lg-8 border bg-light p-3" id="formularioMaterias">
-        <input type="text" name="materia_id" id="materia_id">
+    <form class="col-lg-8 border bg-light p-3" id="formularioGrados">
+        <input type="Hidden" name="grado_id" id="grado_id">
         <div class="row mb-3">
             <div class="col">
-                <label for="materia_nombre">Nombre de la materia</label>
-                <input type="text" name="materia_nombre" id="materia_nombre" class="form-control">
+                <label for="grado_nombre">Grado de Oficialidad</label>
+                <input type="text" name="grado_nombre" id="grado_nombre" class="form-control">
             </div>
         </div>
 
         <div class="row mb-3">
             <div class="col">
-                <button type="submit" form="formularioMaterias" id="btnGuardar" data-saludo="hola" data-saludo2="hola2" class="btn btn-primary w-100">Guardar</button>
+                <button type="submit" form="formularioGrados" id="btnGuardar" data-saludo="hola" data-saludo2="hola2" class="btn btn-primary w-100">Guardar</button>
             </div>
             <div class="col">
                 <button type="button" id="btnModificar" class="btn btn-warning w-100">Modificar</button>
@@ -27,12 +27,12 @@
 </div>
 <div class="row justify-content-center" id="divTabla">
     <div class="col-lg-8">
-        <h2>Listado de materias</h2>
-        <table class="table table-bordered table-hover" id="tablaMaterias">
+        <h2>Listado de grados</h2>
+        <table class="table table-bordered table-hover" id="tablaGrados">
             <thead class="table-dark">
                 <tr>
                     <th>NO. </th>
-                    <th>NOMBRE</th>
+                    <th>GRADO</th>
                     <th>MODIFICAR</th>
                     <th>ELIMINAR</th>
                 </tr>
@@ -42,4 +42,4 @@
         </table>
     </div>
 </div>
-<script src="<?= asset('./build/js/materias/index.js')  ?>"></script>
+<script src="<?= asset('./build/js/grados/index.js')  ?>"></script>

@@ -15,7 +15,7 @@ class Materia extends ActiveRecord{
     {
         $this->materia_id = $args['materia_id'] ?? null;
         $this->materia_nombre = $args['materia_nombre'] ?? '';
-        $this->materia_situacion = $args['materia_situacion'] ?? '';
+        $this->materia_situacion = $args['materia_situacion'] ?? '1';
         
     }
 }

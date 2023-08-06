@@ -2,16 +2,16 @@
 
 namespace Controllers;
 use Exception;
-use Model\Materia;
+use Model\Grado;
 use MVC\Router;
 
-class MateriaController{
+class GradoController{
     public static function index(Router $router) {
-        $materias = Materia::all();
-        // var_dump($materias);
+        $grados = Grado::all();
+        // var_dump($grados);
         // exit;
-        $router->render('materias/index', [
-            'materias' =>$materias
+        $router->render('grados/index', [
+            'grados' =>$grados
        ]);
 // ================hasta aqui se puede ver la tabla sin ejecutarse acciones         
     
@@ -20,8 +20,8 @@ class MateriaController{
     public static function guardarApi(){
      
         try {
-            $materia = new Materia($_POST);
-            $resultado = $materia->crear();
+            $grado = new Grado($_POST);
+            $resultado = $grado->crear();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -47,22 +47,22 @@ class MateriaController{
    
     public static function buscarApi()
     {
-        // $materias = Materia::all();
-        $materia_nombre = $_GET['materia_nombre'];
+        // $grados = grado::all();
+        $grado_nombre = $_GET['grado_nombre'];
        
 
-        $sql = "SELECT * FROM materias where materia_situacion = 1 ";
-        if ($materia_nombre != '') {
-            $sql .= " and materia_nombre like '%$materia_nombre%' ";
+        $sql = "SELECT * FROM grados where grado_situacion = 1 ";
+        if ($grado_nombre != '') {
+            $sql .= " and grado_nombre like '%$grado_nombre%' ";
         }
         
         
         try {
             
-            $materias = Materia::fetchArray($sql);
+            $grados = Grado::fetchArray($sql);
             header('Content-Type: application/json');
 
-            echo json_encode($materias);
+            echo json_encode($grados);
         } catch (Exception $e) {
             echo json_encode([
                 'detalle' => $e->getMessage(),
@@ -75,10 +75,10 @@ class MateriaController{
     public static function modificarApi(){
      
         try {
-            $materia = new Materia($_POST);
-            // $resultado = $materia->crear();
+            $grado = new Grado($_POST);
+            // $resultado = $grado->crear();
 
-            $resultado = $materia->actualizar();
+            $resultado = $grado->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -105,10 +105,10 @@ class MateriaController{
     public static function eliminarApi(){
      
         try {
-            $materia_id = $_POST['materia_id'];
-            $materia = Materia::find($materia_id);
-            $materia->materia_situacion = 0;
-            $resultado = $materia->actualizar();
+            $grado_id = $_POST['grado_id'];
+            $grado = Grado::find($grado_id);
+            $grado->grado_situacion = 0;
+            $resultado = $grado->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
