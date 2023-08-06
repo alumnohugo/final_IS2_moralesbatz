@@ -28,6 +28,8 @@ const guardar = async (evento) => {
     const body = new FormData(formulario)
     body.delete('materia_id')
     const url = '/final_IS2_moralesbatz/API/materias/guardar';
+    const headers = new Headers();
+    headers.append("X-Requested-With","fetch");
     const config = {
         method: 'POST',
         // body: otroNombre
@@ -74,6 +76,8 @@ const buscar = async () => {
     let materia_nombre = formulario.materia_nombre.value;
 
     const url = `/final_IS2_moralesbatz/API/materias/buscar?materia_nombre=${materia_nombre}`;
+    const headers = new Headers();
+    headers.append("X-Requested-With","fetch");
     const config = {
         method: 'GET'
     }
@@ -178,6 +182,8 @@ const modificar = async () => {
 
     const body = new FormData(formulario)
     const url = '/final_IS2_moralesbatz/API/materias/modificar';
+    const headers = new Headers();
+    headers.append("X-Requested-With","fetch");
     const config = {
         method: 'POST',
         body
@@ -224,6 +230,8 @@ const eliminar = async (id) => {
         const body = new FormData()
         body.append('materia_id', id)
         const url = '/final_IS2_moralesbatz/API/materias/eliminar';
+        const headers = new Headers();
+        headers.append("X-Requested-With","fetch");
         const config = {
             method: 'POST',
             body

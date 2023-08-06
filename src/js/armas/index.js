@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import { validarFormulario, Toast, confirmacion } from "../funciones";
 
 const formulario = document.querySelector('form')
-const tablaGrados = document.getElementById('tablaGrados');
+const tablaArmas = document.getElementById('tablaArmas');
 const btnBuscar = document.getElementById('btnBuscar');
 const btnModificar = document.getElementById('btnModificar');
 const btnGuardar = document.getElementById('btnGuardar');
@@ -17,7 +17,7 @@ btnCancelar.parentElement.style.display = 'none'
 
 const guardar = async (evento) => {
     evento.preventDefault();
-    if (!validarFormulario(formulario, ['grado_id'])) {
+    if (!validarFormulario(formulario, ['arma_id'])) {
         Toast.fire({
             icon: 'info',
             text: 'Debe llenar todos los datos'
@@ -26,9 +26,8 @@ const guardar = async (evento) => {
     }
 
     const body = new FormData(formulario)
-    body.delete('grado_id')
-    const url = '/final_IS2_moralesbatz/API/grados/guardar';
-    
+    body.delete('arma_id')
+    const url = '/final_IS2_moralesbatz/API/armas/guardar';
     const headers = new Headers();
     headers.append("X-Requested-With","fetch");
     const config = {
@@ -74,9 +73,9 @@ const guardar = async (evento) => {
 
 const buscar = async () => {
 
-    let grado_nombre = formulario.grado_nombre.value;
+    let arma_nombre = formulario.arma_nombre.value;
 
-    const url = `/final_IS2_moralesbatz/API/grados/buscar?grado_nombre=${grado_nombre}`;
+    const url = `/final_IS2_moralesbatz/API/armas/buscar?arma_nombre=${arma_nombre}`;
     const headers = new Headers();
     headers.append("X-Requested-With","fetch");
     const config = {
@@ -87,13 +86,13 @@ const buscar = async () => {
         const respuesta = await fetch(url, config)
         const data = await respuesta.json();
 
-        tablaGrados.tBodies[0].innerHTML = ''
+        tablaArmas.tBodies[0].innerHTML = ''
         const fragment = document.createDocumentFragment();
         // console.log(data);
         // return;
         if (data.length > 0) {
             let contador = 1;
-            data.forEach(grado => {
+            data.forEach(arma => {
                 // CREAMOS ELEMENTOS
                 const tr = document.createElement('tr');
                 const td1 = document.createElement('td')
@@ -109,11 +108,11 @@ const buscar = async () => {
                 buttonModificar.textContent = 'Modificar'
                 buttonEliminar.textContent = 'Eliminar'
 
-                buttonModificar.addEventListener('click', () => colocarDatos(grado))
-                buttonEliminar.addEventListener('click', () => eliminar(grado.grado_id))
+                buttonModificar.addEventListener('click', () => colocarDatos(arma))
+                buttonEliminar.addEventListener('click', () => eliminar(arma.arma_id))
 
                 td1.innerText = contador;
-                td2.innerText = grado.grado_nombre;
+                td2.innerText = arma.arma_nombre;
                 // td3.innerText = producto.producto_precio
 
 
@@ -139,16 +138,16 @@ const buscar = async () => {
             fragment.appendChild(tr);
         }
 
-        tablaGrados.tBodies[0].appendChild(fragment)
+        tablaArmas.tBodies[0].appendChild(fragment)
     } catch (error) {
         console.log(error);
     }
 }
 
 const colocarDatos = (datos) => {
-    formulario.grado_nombre.value = datos.grado_nombre
-    // formulario.producto_precio.value = datos.producto_precio
-    formulario.grado_id.value = datos.grado_id
+    formulario.arma_nombre.value = datos.arma_nombre
+    // formulario.arma_precio.value = datos.arma_precio
+    formulario.arma_id.value = datos.arma_id
 
     btnGuardar.disabled = true
     btnGuardar.parentElement.style.display = 'none'
@@ -182,7 +181,7 @@ const modificar = async () => {
     }
 
     const body = new FormData(formulario)
-    const url = '/final_IS2_moralesbatz/API/grados/modificar';
+    const url = '/final_IS2_moralesbatz/API/armas/modificar';
     const headers = new Headers();
     headers.append("X-Requested-With","fetch");
     const config = {
@@ -229,8 +228,8 @@ const modificar = async () => {
 const eliminar = async (id) => {
     if (await confirmacion('warning', 'Desea elminar este registro?')) {
         const body = new FormData()
-        body.append('grado_id', id)
-        const url = '/final_IS2_moralesbatz/API/grados/eliminar';
+        body.append('arma_id', id)
+        const url = '/final_IS2_moralesbatz/API/armas/eliminar';
         const headers = new Headers();
         headers.append("X-Requested-With","fetch");
         const config = {

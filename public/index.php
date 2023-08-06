@@ -4,6 +4,7 @@ require_once __DIR__ . '/../includes/app.php';
 
 use Controllers\MateriaController;
 use Controllers\GradoController;
+use Controllers\ArmaController;
 use MVC\Router;
 use Controllers\AppController;
 $router = new Router();
@@ -21,6 +22,12 @@ $router->get('/API/grados/buscar', [GradoController::class,'buscarApi']);
 $router->post('/API/grados/guardar', [GradoController::class,'guardarApi']);
 $router->post('/API/grados/modificar', [GradoController::class,'modificarApi']);
 $router->post('/API/grados/eliminar', [GradoController::class,'eliminarApi']);
+
+$router->get('/armas', [ArmaController::class,'index']);
+$router->get('/API/armas/buscar', [ArmaController::class,'buscarApi']);
+$router->post('/API/armas/guardar', [ArmaController::class,'guardarApi']);
+$router->post('/API/armas/modificar', [ArmaController::class,'modificarApi']);
+$router->post('/API/armas/eliminar', [ArmaController::class,'eliminarApi']);
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();
