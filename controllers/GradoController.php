@@ -48,21 +48,23 @@ class GradoController{
     public static function buscarApi()
     {
         // $grados = grado::all();
-        $grado_nombre = $_GET['grado_nombre'];
-       
-
-        $sql = "SELECT * FROM grados where grado_situacion = 1 ";
-        if ($grado_nombre != '') {
-            $sql .= " and grado_nombre like '%$grado_nombre%' ";
-        }
+   
         
         
         try {
+            $grado_nombre = $_GET['grado_nombre'];
+           
+    
+            $sql = "SELECT * FROM grados where grado_situacion = 1 ";
+            if ($grado_nombre != '') {
+                $sql .= " and grado_nombre like '%$grado_nombre%' ";
+            }
             
-            $grados = Grado::fetchArray($sql);
+            $resultado = Grado::fetchArray($sql);
             header('Content-Type: application/json');
 
-            echo json_encode($grados);
+         echo json_encode($resultado);
+
         } catch (Exception $e) {
             echo json_encode([
                 'detalle' => $e->getMessage(),

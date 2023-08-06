@@ -8,7 +8,8 @@ module.exports = {
     'js/inicio' : './src/js/inicio.js',
     'js/materias/index' : './src/js/materias/index.js',
     'js/grados/index' : './src/js/grados/index.js',
-    'js/armas/index' : './src/js/armas/index.js'
+    'js/armas/index' : './src/js/armas/index.js',
+    'js/alumnos/index' : './src/js/alumnos/index.js'
 
    
   },
