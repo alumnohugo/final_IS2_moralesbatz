@@ -51,7 +51,9 @@
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/final_IS2_moralesbatz/alumnos"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>ALUMNOS</a>
                             </li>
-                        
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/final_IS2_moralesbatz/detalles"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>NOTAS</a>
+                            </li>
                     
                         
                         </ul>

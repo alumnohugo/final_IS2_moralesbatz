@@ -4,12 +4,23 @@
         <input type="text" name="calificacion_id" id="calificacion_id">
         <div class="row mb-4 mt-3">
             <div class="col-lg-12">
-                <label for="select">Materias</label>
+                <label for="select">Alumnos  </label>
                 <select class="form-control" name="calificacion_asignacion" id="calificacion_asignacion">
                     <option value="">Seleccione una asignación </option>
                     <?php foreach ($asignaciones as $asignacion) { ?>
                         <option value="<?= $asignacion['asig_id'] ?>">
-                            <?= $asignacion['alumno_nombre'] ?> - <?= $asignacion['materia_asignada'] ?>
+                            <?= $asignacion['alumno_nombre'] ?> 
+                        </option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="col-lg-12">
+                <label for="select">Materias </label>
+                <select class="form-control" name="calificacion_asignacion" id="calificacion_asignacion">
+                    <option value="">Seleccione una asignación </option>
+                    <?php foreach ($asignaciones as $asignacion) { ?>
+                        <option value="<?= $asignacion['asig_id'] ?>">
+                            <?= $asignacion['materia_asignada'] ?>
                         </option>
                     <?php } ?>
                 </select>

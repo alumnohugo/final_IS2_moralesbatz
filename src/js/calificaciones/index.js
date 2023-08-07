@@ -71,25 +71,26 @@ const guardar = async (evento) => {
 
 const buscar = async () => {
 
-    let alumno_nombre = formulario.calificacion_asignacion.value;
+
+
     // let materia_asignada = formulario.calificacion_asignacion;
     // let alumno_nacionalidad = formulario.alumno_nacionalidad.value;
-
-    const url = `/final_IS2_moralesbatz/API/asignaciones/buscar?calificacion_asignacion=${alumno_nombre}`;
+    
+    const url = `/final_IS2_moralesbatz/API/calificaciones/buscar?calificacion_asignacion=${formulario.calificacion_asignacion.value}`;
     const headers = new Headers();
     headers.append("X-Requested-With","fetch");
     const config = {
         method: 'GET'
     }
-
+    
     try {
         const respuesta = await fetch(url, config)
         const data = await respuesta.json();
-
+        //  console.log(data);
+        // return
+        
         tablaCalificaciones.tBodies[0].innerHTML = ''
         const fragment = document.createDocumentFragment();
-        // console.log(data);
-        // return;
         if (data.length > 0) {
             let contador = 1;
             data.forEach(calificacion => {
@@ -117,6 +118,8 @@ const buscar = async () => {
                 td1.innerText = contador;
                 td2.innerText = calificacion.alumno_nombre;
                 td3.innerText = calificacion.materia_asignada;
+                td4.innerText = calificacion.calificacion_punteo;
+                td5.innerText = calificacion.calificacion_resultado;
                
              
                 
@@ -155,8 +158,11 @@ const buscar = async () => {
 }
 
 const colocarDatos = (datos) => {
+    console.log(datos)
     formulario.calificacion_asignacion.value = datos.alumno_nombre
-    formulario.calificaion_asignacion.value = datos.materia_asignada
+    formulario.calificacion_asignacion.value = datos.materia_asignada
+    formulario.calificacion_punteo.value = datos.calificacion_punteo
+    formulario.calificacion_resultado.value = datos.calificacion_resultado
     formulario.calificacion_id.value = datos.calificacion_id
 
     btnGuardar.disabled = true

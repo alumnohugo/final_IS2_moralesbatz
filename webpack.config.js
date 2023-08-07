@@ -11,7 +11,8 @@ module.exports = {
     'js/armas/index' : './src/js/armas/index.js',
     'js/alumnos/index' : './src/js/alumnos/index.js',
     'js/asignaciones/index' : './src/js/asignaciones/index.js',
-    'js/calificaciones/index' : './src/js/calificaciones/index.js'
+    'js/calificaciones/index' : './src/js/calificaciones/index.js',
+    'js/detalles/index' : './src/js/detalles/index.js'
 
    
   },

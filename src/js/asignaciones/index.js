@@ -70,11 +70,11 @@ const guardar = async (evento) => {
 
 const buscar = async () => {
 
-    let alumno_nombre = formulario.asig_alumno.value;
-    let materia_nombre = formulario.asig_materia.value;
+    // let alumno_nombre = formulario.asig_alumno.value;
+    // let materia_nombre = formulario.asig_materia.value;
     // let alumno_nacionalidad = formulario.alumno_nacionalidad.value;
 
-    const url = `/final_IS2_moralesbatz/API/asignaciones/buscar?asig_alumno=${alumno_nombre}&asig_materia=${materia_nombre}`;
+    const url = `/final_IS2_moralesbatz/API/asignaciones/buscar?asig_alumno=${formulario.asig_alumno.value}`;
     const headers = new Headers();
     headers.append("X-Requested-With","fetch");
     const config = {
@@ -85,10 +85,10 @@ const buscar = async () => {
         const respuesta = await fetch(url, config)
         const data = await respuesta.json();
 
-        tablaAsignaciones.tBodies[0].innerHTML = ''
-        const fragment = document.createDocumentFragment();
         // console.log(data);
         // return;
+        tablaAsignaciones.tBodies[0].innerHTML = ''
+        const fragment = document.createDocumentFragment();
         if (data.length > 0) {
             let contador = 1;
             data.forEach(asignacion => {
@@ -279,7 +279,7 @@ const eliminar = async (id) => {
         }
     }
 }
-// buscar();
+buscar();
 formulario.addEventListener('submit', guardar)
  btnBuscar.addEventListener('click', buscar)
 btnCancelar.addEventListener('click', cancelarAccion)

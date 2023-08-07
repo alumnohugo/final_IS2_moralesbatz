@@ -57,36 +57,37 @@ class CalificacionController{
     
     public static function buscarApi()
     {
-        // $calificacion_asignacion = Calificacion::all();
-      
-        $calificacion_asignacion = $_GET['calificacion_id'];
-     
+       
+        $calificacion_asignacion = $_GET['calificacion_asignacion'];
+
         $sql = "SELECT
-                a.calificacion_id,
+                c.calificacion_id,
                 TRIM(alumno.alumno_nombre) || ' ' || TRIM(alumno.alumno_apellido) AS alumno_nombre,
                 TRIM(materia.materia_nombre) AS materia_asignada,
-                a.calificacion_punteo,
-                a.calificacion_resultado,
-                a.calificacion_situacion
+                c.calificacion_punteo,
+                c.calificacion_resultado,
+                c.calificacion_situacion
             FROM
-                calificaciones a
+                calificaciones c
             JOIN
-                alumnos alumno ON a.calificacion_asignacion = alumno.alumno_id
+                asignaciones a ON c.calificacion_asignacion = a.asig_id
             JOIN
-                materias materia ON a.calificacion_asignacion = materia.materia_id
+                alumnos alumno ON a.asig_alumno = alumno.alumno_id
+            JOIN
+                materias materia ON a.asig_materia = materia.materia_id
             WHERE
-                a.calificacion_situacion = '1'";
+                c.calificacion_situacion = '1'";
         
         if ($calificacion_asignacion != '') {
-            $sql .= " AND a.calificacion_asignacion = '$calificacion_asignacion'";
+            $sql .= " AND c.calificacion_asignacion = '$calificacion_asignacion'";
         }
+        
+     
                      
         try {
             
             $calificacion = Calificacion::fetchArray($sql);
-            echo json_encode($calificacion);
-            exit;
-            header('Content-Type: application/json');
+         
 
             echo json_encode($calificacion);
         } catch (Exception $e) {
@@ -131,7 +132,7 @@ class CalificacionController{
     public static function eliminarApi(){
      
         try {
-            $calificacion_id = $_POST['calificaion_id'];
+            $calificacion_id = $_POST['calificacion_id'];
             $calificacion = Calificacion::find($calificacion_id);
             $calificacion->calificacion_situacion = 0;
             $resultado = $calificacion->actualizar();

@@ -8,6 +8,7 @@ use Controllers\ArmaController;
 use Controllers\AlumnoController;
 use Controllers\AsignacionController;
 use Controllers\CalificacionController;
+use Controllers\DetalleController;
 use MVC\Router;
 use Controllers\AppController;
 $router = new Router();
@@ -49,5 +50,9 @@ $router->get('/API/calificaciones/buscar', [CalificacionController::class,'busca
 $router->post('/API/calificaciones/guardar', [CalificacionController::class,'guardarApi']);
 $router->post('/API/calificaciones/modificar', [CalificacionController::class,'modificarApi']);
 $router->post('/API/calificaciones/eliminar', [CalificacionController::class,'eliminarApi']);
+
+$router->get('/detalles', [DetalleController::class,'index']);
+$router->get('/API/detalles/buscar', [DetalleController::class,'buscarApi']);
+
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();
