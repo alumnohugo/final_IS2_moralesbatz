@@ -11,14 +11,14 @@ const thpromedio = document.getElementById('promedio')
 const btnBuscar = document.getElementById('btnBuscar');
 const divTabla = document.getElementById('divTabla');
 
-// Función para calcular el promedio de un array de números
+
 function calcularPromedio(array) {
     if (array.length === 0) return 0;
     const sum = array.reduce((total, value) => total + value, 0);
     return sum / array.length;
 }
 
-// Función para cambiar el color del texto en la columna calificacion_punteo si es menor a 60
+
 function aplicarColorCalificacionPunteo(td, calificacionPunteo) {
     if (parseFloat(calificacionPunteo) < 60) {
         td.style.color = 'red';
