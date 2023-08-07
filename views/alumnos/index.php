@@ -1,7 +1,7 @@
 <h1 class="text-center">Formulario de Alumnos</h1>
 <div class="row justify-content-center mb-5">
     <form class="col-lg-8 border bg-light p-3" id="formularioAlumnos">
-        <input type="text" name="alumno_id" id="alumno_id">
+        <input type="Hidden" name="alumno_id" id="alumno_id">
         <div class="row mb-3">
             <div class="col">
                 <label for="alumno_nombre">Nombre del Oficial </label>
@@ -24,12 +24,12 @@
             <div class="col-lg-12">
                 <label for="select">Grados</label>
                 <select class="form-control" name="alumno_grado_id" id="alumno_grado_id">
-                 
 
-                      <option value="">Seleccione...</option>
-                            <?php foreach ($grados as $grado) { ?>
-                                <option value="<?= $grado['grado_id']  ?>"><?= $grado['grado_nombre']  ?></option>
-                            <?php  }  ?>
+
+                    <option value="">Seleccione el grado de oficialidad</option>
+                    <?php foreach ($grados as $grado) { ?>
+                        <option value="<?= $grado['grado_id']  ?>"><?= $grado['grado_nombre']  ?></option>
+                    <?php  }  ?>
                 </select>
             </div>
         </div>
@@ -39,10 +39,9 @@
                 <select class="form-control" name="alumno_arma_id" id="alumno_arma_id">
                     <option value="">Seleccione un Arma/Servicio</option>
 
-                    <option value="">Seleccione...</option>
-                            <?php foreach ($armas as $arma) { ?>
-                                <option value="<?= $arma['arma_id']  ?>"><?= $arma['arma_nombre']  ?></option>
-                            <?php  }  ?>
+                    <?php foreach ($armas as $arma) { ?>
+                        <option value="<?= $arma['arma_id']  ?>"><?= $arma['arma_nombre']  ?></option>
+                    <?php  }  ?>
                 </select>
             </div>
         </div>

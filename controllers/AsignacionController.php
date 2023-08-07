@@ -2,31 +2,31 @@
 
 namespace Controllers;
 use Exception;
-use Model\Alumno;
+use Model\Asignacion;
 use MVC\Router;
 
-class AlumnoController{
+class AsignacionController{
     public static function index(Router $router) {
         // se declara una variable para alamcenar
-        $grados = static::grados();
-        $armas = static::armas();
-        $router->render('alumnos/index', [
+        $alumnos = static::alumnos();
+        $materias = static::materias();
+        $router->render('asignaciones/index', [
            
-            'grados' => $grados,  
-            'armas' => $armas
+            'alumnos' => $alumnos, 
+            'materias' => $materias
        ]);
      
     
     }
-      
+
 
 
     public static function guardarApi(){
     
      
         try {
-            $alumno = new Alumno($_POST);
-            $resultado = $alumno->crear();
+            $asignacion = new Asignacion($_POST);
+            $resultado = $asignacion->crear();
             // echo json_encode($resultado);
             // exit;
             if ($resultado['resultado'] == 1) {
@@ -54,38 +54,36 @@ class AlumnoController{
    
     public static function buscarApi()
     {
-        // $alumnos = alumno::all();
-        $alumno_nombre = $_GET['alumno_nombre'];
+        // $asignaciones = Asignacion::all();
+        $alumno_nombre = $_GET['asig_alumno'];
        
-
         $sql = "SELECT
-                    a.alumno_id,
-                    a.alumno_nombre,
-                    a.alumno_apellido,
-                    g.grado_nombre AS alumno_grado,
-                    arma.arma_nombre AS alumno_arma,
-                    a.alumno_nacionalidad,
-                    a.alumno_situacion
-                FROM
-                    alumnos a
-                JOIN
-                    grados g ON a.alumno_grado_id = g.grado_id
-                JOIN
-                    armas arma ON a.alumno_arma_id = arma.arma_id
-                WHERE
-                a.alumno_situacion = '1'";
+        a.asig_id,
+        TRIM(alumno.alumno_nombre) || ' ' || TRIM(alumno.alumno_apellido) AS alumno_nombre,
+        TRIM(materia.materia_nombre) AS materia_asignada,
+        a.asig_situacion
+    FROM
+        asignaciones a
+    JOIN
+        alumnos alumno ON a.asig_alumno = alumno.alumno_id
+    JOIN
+        materias materia ON a.asig_materia = materia.materia_id
+    WHERE
+        a.asig_situacion = '1'";
 
-        if ($alumno_nombre != '') {
-            $sql .= " AND a.alumno_nombre LIKE '%$alumno_nombre%'";
-        }
+    if ($alumno_nombre != '') {
+        $sql .= " AND (TRIM(alumno.alumno_nombre) || ' ' || TRIM(alumno.alumno_apellido)) LIKE '%$alumno_nombre%'";
+    }
+
+
 
         
         try {
             
-            $alumnos = Alumno::fetchArray($sql);
+            $asignacion = Asignacion::fetchArray($sql);
             header('Content-Type: application/json');
 
-            echo json_encode($alumnos);
+            echo json_encode($asignacion);
         } catch (Exception $e) {
             echo json_encode([
                 'detalle' => $e->getMessage(),
@@ -98,11 +96,11 @@ class AlumnoController{
     public static function modificarApi(){
      
         try {
-            $alumno = new Alumno($_POST);
-            // $resultado = $alumno->crear();
-
-            $resultado = $alumno->actualizar();
-
+            $asignacion = new Asignacion($_POST);
+            // $resultado = $Asignacion->crear();
+            
+            $resultado = $asignacion->actualizar();
+            
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
                     'mensaje' => 'Registro modificado correctamente',
@@ -128,10 +126,10 @@ class AlumnoController{
     public static function eliminarApi(){
      
         try {
-            $alumno_id = $_POST['alumno_id'];
-            $alumno = Alumno::find($alumno_id);
-            $alumno->alumno_situacion = 0;
-            $resultado = $alumno->actualizar();
+            $asignacion_id = $_POST['asig_id'];
+            $asignacion = Asignacion::find($asignacion_id);
+            $asignacion->asig_situacion = 0;
+            $resultado = $asignacion->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -158,21 +156,21 @@ class AlumnoController{
     
     
     // se crea una funcion statica que mande a traer todos los grados 
-    public  static function grados()
+    public  static function alumnos()
     {
         
         
-        $sql = "SELECT * FROM grados WHERE grado_situacion = 1 ";
+        $sql = "SELECT * FROM alumnos WHERE alumno_situacion = 1 ";
         
         
         
         try {
             
-            $grados = Alumno::fetchArray($sql);
+            $alumnos = Asignacion::fetchArray($sql);
  
-            if ($grados){
+            if ($alumnos){
                 
-                return $grados; 
+                return $alumnos; 
             }else {
                 return 0;
             }
@@ -183,21 +181,21 @@ class AlumnoController{
     
 
 
-    public  static function armas()
+    public  static function materias()
     {
         
         
-        $sql = "SELECT * FROM armas WHERE arma_situacion = 1";
+        $sql = "SELECT * FROM materias WHERE materia_situacion = 1";
         
         
         
         try {
             
-            $armas = Alumno::fetchArray($sql);
+            $materias = Asignacion::fetchArray($sql);
  
-            if ($armas){
+            if ($materias){
                 
-                return $armas; 
+                return $materias; 
             }else {
                 return 0;
             }

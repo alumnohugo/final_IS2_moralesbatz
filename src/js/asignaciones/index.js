@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import { validarFormulario, Toast, confirmacion } from "../funciones";
 
 const formulario = document.querySelector('form')
-const tablaAlumnos = document.getElementById('tablaAlumnos');
+const tablaAsignaciones = document.getElementById('tablaAsignaciones');
 const btnBuscar = document.getElementById('btnBuscar');
 const btnModificar = document.getElementById('btnModificar');
 const btnGuardar = document.getElementById('btnGuardar');
@@ -17,7 +17,7 @@ btnCancelar.parentElement.style.display = 'none'
 
 const guardar = async (evento) => {
     evento.preventDefault();
-    if (!validarFormulario(formulario, ['alumno_id'])) {
+    if (!validarFormulario(formulario, ['asig_id'])) {
         Toast.fire({
             icon: 'info',
             text: 'Debe llenar todos los datos'
@@ -26,8 +26,8 @@ const guardar = async (evento) => {
     }
 
     const body = new FormData(formulario)
-    body.delete('alumno_id')
-    const url = '/final_IS2_moralesbatz/API/alumnos/guardar';
+    body.delete('asig_id')
+    const url = '/final_IS2_moralesbatz/API/asignaciones/guardar';
     const headers = new Headers();
     headers.append("X-Requested-With","fetch");
     const config = {
@@ -70,11 +70,11 @@ const guardar = async (evento) => {
 
 const buscar = async () => {
 
-    let alumno_nombre = formulario.alumno_nombre.value;
-    let alumno_apellido = formulario.alumno_apellido.value;
-    let alumno_nacionalidad = formulario.alumno_nacionalidad.value;
+    let asig_alumno = formulario.asig_alumno.value;
+    let asig_materia = formulario.asig_materia.value;
+    // let alumno_nacionalidad = formulario.alumno_nacionalidad.value;
 
-    const url = `/final_IS2_moralesbatz/API/alumnos/buscar?alumno_nombre=${alumno_nombre}&alumno_apellido=${alumno_apellido}&alumno_nacionalidad=${alumno_nacionalidad}`;
+    const url = `/final_IS2_moralesbatz/API/asignaciones/buscar?asig_alumno=${asig_alumno}&asig_materia=${asig_materia}`;
     const headers = new Headers();
     headers.append("X-Requested-With","fetch");
     const config = {
@@ -85,13 +85,13 @@ const buscar = async () => {
         const respuesta = await fetch(url, config)
         const data = await respuesta.json();
 
-        tablaAlumnos.tBodies[0].innerHTML = ''
+        tablaAsignaciones.tBodies[0].innerHTML = ''
         const fragment = document.createDocumentFragment();
         // console.log(data);
         // return;
         if (data.length > 0) {
             let contador = 1;
-            data.forEach(alumno => {
+            data.forEach(asignacion => {
                 // CREAMOS ELEMENTOS
                 const tr = document.createElement('tr');
                 const td1 = document.createElement('td')
@@ -99,9 +99,6 @@ const buscar = async () => {
                 const td3 = document.createElement('td')
                 const td4 = document.createElement('td')
                 const td5 = document.createElement('td')
-                const td6 = document.createElement('td')
-                const td7 = document.createElement('td')
-                const td8 = document.createElement('td')
                 const buttonModificar = document.createElement('button')
                 const buttonEliminar = document.createElement('button')
 
@@ -111,28 +108,25 @@ const buscar = async () => {
                 buttonModificar.textContent = 'Modificar'
                 buttonEliminar.textContent = 'Eliminar'
 
-                buttonModificar.addEventListener('click', () => colocarDatos(alumno))
-                buttonEliminar.addEventListener('click', () => eliminar(alumno.alumno_id))
+                buttonModificar.addEventListener('click', () => colocarDatos(asignacion))
+                buttonEliminar.addEventListener('click', () => eliminar(asignacion.asig_id))
 
                 td1.innerText = contador;
-                td2.innerText = alumno.alumno_nombre;
-                td3.innerText = alumno.alumno_apellido;
-                td4.innerText = alumno.alumno_grado;
-                td5.innerText = alumno.alumno_arma;
-                td6.innerText = alumno.alumno_nacionalidad;
+                td2.innerText = asignacion.alumno_nombre;
+                td3.innerText = asignacion.materia_asignada;
+             
+                
 
 
                 // ESTRUCTURANDO DOM
-                td7.appendChild(buttonModificar)
-                td8.appendChild(buttonEliminar)
+                td4.appendChild(buttonModificar)
+                td5.appendChild(buttonEliminar)
                 tr.appendChild(td1)
                 tr.appendChild(td2)
                 tr.appendChild(td3)
                 tr.appendChild(td4)
                 tr.appendChild(td5)
-                tr.appendChild(td6)
-                tr.appendChild(td7)
-                tr.appendChild(td8)
+                
 
 
                 fragment.appendChild(tr);
@@ -147,7 +141,7 @@ const buscar = async () => {
             tr.appendChild(td)
             fragment.appendChild(tr);
         }
-        tablaAlumnos.tBodies[0].appendChild(fragment)
+        tablaAsignaciones.tBodies[0].appendChild(fragment)
 
     } catch (error) {
         console.log(error);
@@ -155,13 +149,9 @@ const buscar = async () => {
 }
 
 const colocarDatos = (datos) => {
-    formulario.alumno_nombre.value = datos.alumno_nombre
-    formulario.alumno_apellido.value = datos.alumno_apellido
-    formulario.alumno_grado_id.value = datos.alumno_grado_id
-    formulario.alumno_arma_id.value = datos.alumno_arma_id
-    formulario.alumno_nacionalidad.value = datos.alumno_nacionaliad
-        // formulario.producto_precio.value = datos.producto_precio
-    formulario.alumno_id.value = datos.alumno_id
+    formulario.asig_alumno.value = datos.alumno_nombre
+    formulario.asig_materia.value = datos.materia_asignada
+    formulario.asig_id.value = datos.asig_id
 
     btnGuardar.disabled = true
     btnGuardar.parentElement.style.display = 'none'
@@ -195,7 +185,7 @@ const modificar = async () => {
     }
 
     const body = new FormData(formulario)
-    const url = '/final_IS2_moralesbatz/API/alumnos/modificar';
+    const url = '/final_IS2_moralesbatz/API/asignaciones/modificar';
     const headers = new Headers();
     headers.append("X-Requested-With","fetch");
     const config = {
@@ -242,8 +232,8 @@ const modificar = async () => {
 const eliminar = async (id) => {
     if (await confirmacion('warning', 'Desea elminar este registro?')) {
         const body = new FormData()
-        body.append('alumno_id', id)
-        const url = '/final_IS2_moralesbatz/API/alumnos/eliminar';
+        body.append('asig_id', id)
+        const url = '/final_IS2_moralesbatz/API/asignaciones/eliminar';
         const headers = new Headers();
         headers.append("X-Requested-With","fetch");
         const config = {
@@ -253,7 +243,7 @@ const eliminar = async (id) => {
         try {
             const respuesta = await fetch(url, config)
             const data = await respuesta.json();
-            console.log(data);
+            // console.log(data);
             // return;
 
 
@@ -289,7 +279,7 @@ const eliminar = async (id) => {
         }
     }
 }
-buscar();
+// buscar();
 formulario.addEventListener('submit', guardar)
  btnBuscar.addEventListener('click', buscar)
 btnCancelar.addEventListener('click', cancelarAccion)
