@@ -1,7 +1,7 @@
 <h1 class="text-center">Formulario de Calificaciones</h1>
 <div class="row justify-content-center mb-5">
     <form class="col-lg-8 border bg-light p-3" id="formularioCalificaciones">
-        <input type="text" name="calificacion_id" id="calificacion_id">
+        <input type="hidden" name="calificacion_id" id="calificacion_id">
         <div class="row mb-4 mt-3">
             <div class="col-lg-12">
                 <label for="select">Alumnos  </label>

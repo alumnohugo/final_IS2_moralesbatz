@@ -1,7 +1,7 @@
 <h1 class="text-center">Formulario de materias</h1>
 <div class="row justify-content-center mb-5">
     <form class="col-lg-8 border bg-light p-3" id="formularioMaterias">
-        <input type="text" name="materia_id" id="materia_id">
+        <input type="hidden" name="materia_id" id="materia_id">
         <div class="row mb-3">
             <div class="col">
                 <label for="materia_nombre">Nombre de la materia</label>
