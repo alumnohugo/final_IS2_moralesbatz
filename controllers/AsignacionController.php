@@ -55,12 +55,14 @@ class AsignacionController{
     public static function buscarApi()
     {
         // $asignaciones = Asignacion::all();
-        $alumno_nombre = $_GET['asig_alumno'];
+        $asig_alumno = $_GET['asig_alumno'];
+
+        // $asig_materia = $_GET['asig_materia'];
        
         $sql = "SELECT
         a.asig_id,
         TRIM(alumno.alumno_nombre) || ' ' || TRIM(alumno.alumno_apellido) AS alumno_nombre,
-        TRIM(materia.materia_nombre) AS materia_asignada,
+        TRIM(materia.materia_nombre) AS materia_nombre,
         a.asig_situacion
     FROM
         asignaciones a
@@ -71,9 +73,11 @@ class AsignacionController{
     WHERE
         a.asig_situacion = '1'";
 
-    if ($alumno_nombre != '') {
-        $sql .= " AND (TRIM(alumno.alumno_nombre) || ' ' || TRIM(alumno.alumno_apellido)) LIKE '%$alumno_nombre%'";
+    if ($asig_alumno != '') {
+        $sql .= " AND (TRIM(alumno.alumno_nombre) || ' ' || TRIM(alumno.alumno_apellido)) LIKE '%$asig_alumno%'";
     }
+
+    
 
 
 

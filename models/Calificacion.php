@@ -1,7 +1,7 @@
 <?php
 namespace Model;
 
-class  Calificacion extends ActiveRecord{
+class Calificacion extends ActiveRecord{
     protected static $tabla = 'calificaciones';
     protected static $columnasDB = ['calificacion_asignacion','calificacion_punteo','calificacion_resultado','calificacion_situacion'];
     protected static $idTabla = 'calificacion_id';
@@ -11,7 +11,6 @@ class  Calificacion extends ActiveRecord{
     public $calificacion_asignacion;
     public $calificacion_punteo;
     public $calificacion_resultado;
-    
     public $calificacion_situacion;
     
     public function __construct($args =[])
@@ -21,7 +20,6 @@ class  Calificacion extends ActiveRecord{
         $this->calificacion_punteo = $args['calificacion_punteo'] ?? '';
         $this->calificacion_resultado = $args['calificacion_resultado'] ?? '';
         $this->calificacion_situacion = $args['calificacion_situacion'] ?? '1';
-        
         
     }
 }

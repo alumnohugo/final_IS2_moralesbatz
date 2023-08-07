@@ -39,6 +39,18 @@
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/final_IS2_moralesbatz/materias"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>MATERIAS</a>
                             </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/final_IS2_moralesbatz/armas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>ARMAS</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/final_IS2_moralesbatz/calificaciones"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>CALIFICACIONES</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/final_IS2_moralesbatz/asignaciones"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>ASIGNACIONES</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/final_IS2_moralesbatz/alumnos"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>ALUMNOS</a>
+                            </li>
                         
                     
                         

@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import { validarFormulario, Toast, confirmacion } from "../funciones";
 
 const formulario = document.querySelector('form')
-const tablaAsignaciones = document.getElementById('tablaAsignaciones');
+const tablaCalificaciones = document.getElementById('tablaCalificaciones');
 const btnBuscar = document.getElementById('btnBuscar');
 const btnModificar = document.getElementById('btnModificar');
 const btnGuardar = document.getElementById('btnGuardar');
@@ -17,7 +17,7 @@ btnCancelar.parentElement.style.display = 'none'
 
 const guardar = async (evento) => {
     evento.preventDefault();
-    if (!validarFormulario(formulario, ['asig_id'])) {
+    if (!validarFormulario(formulario, ['calificacion_id'])) {
         Toast.fire({
             icon: 'info',
             text: 'Debe llenar todos los datos'
@@ -26,8 +26,8 @@ const guardar = async (evento) => {
     }
 
     const body = new FormData(formulario)
-    body.delete('asig_id')
-    const url = '/final_IS2_moralesbatz/API/asignaciones/guardar';
+    body.delete('calificacion_id')
+    const url = '/final_IS2_moralesbatz/API/calificaciones/guardar';
     const headers = new Headers();
     headers.append("X-Requested-With","fetch");
     const config = {
@@ -38,7 +38,8 @@ const guardar = async (evento) => {
     try {
         const respuesta = await fetch(url, config)
         const data = await respuesta.json();
-
+        // console.log(data);
+        // return;
 
         const { codigo, mensaje, detalle } = data;
         let icon = 'info'
@@ -70,11 +71,11 @@ const guardar = async (evento) => {
 
 const buscar = async () => {
 
-    let alumno_nombre = formulario.asig_alumno.value;
-    let materia_nombre = formulario.asig_materia.value;
+    let alumno_nombre = formulario.calificacion_asignacion.value;
+    // let materia_asignada = formulario.calificacion_asignacion;
     // let alumno_nacionalidad = formulario.alumno_nacionalidad.value;
 
-    const url = `/final_IS2_moralesbatz/API/asignaciones/buscar?asig_alumno=${alumno_nombre}&asig_materia=${materia_nombre}`;
+    const url = `/final_IS2_moralesbatz/API/asignaciones/buscar?calificacion_asignacion=${alumno_nombre}`;
     const headers = new Headers();
     headers.append("X-Requested-With","fetch");
     const config = {
@@ -85,13 +86,13 @@ const buscar = async () => {
         const respuesta = await fetch(url, config)
         const data = await respuesta.json();
 
-        tablaAsignaciones.tBodies[0].innerHTML = ''
+        tablaCalificaciones.tBodies[0].innerHTML = ''
         const fragment = document.createDocumentFragment();
         // console.log(data);
         // return;
         if (data.length > 0) {
             let contador = 1;
-            data.forEach(asignacion => {
+            data.forEach(calificacion => {
                 // CREAMOS ELEMENTOS
                 const tr = document.createElement('tr');
                 const td1 = document.createElement('td')
@@ -99,6 +100,8 @@ const buscar = async () => {
                 const td3 = document.createElement('td')
                 const td4 = document.createElement('td')
                 const td5 = document.createElement('td')
+                const td6 = document.createElement('td')
+                const td7 = document.createElement('td')
                 const buttonModificar = document.createElement('button')
                 const buttonEliminar = document.createElement('button')
 
@@ -108,24 +111,27 @@ const buscar = async () => {
                 buttonModificar.textContent = 'Modificar'
                 buttonEliminar.textContent = 'Eliminar'
 
-                buttonModificar.addEventListener('click', () => colocarDatos(asignacion))
-                buttonEliminar.addEventListener('click', () => eliminar(asignacion.asig_id))
+                buttonModificar.addEventListener('click', () => colocarDatos(calificacion))
+                buttonEliminar.addEventListener('click', () => eliminar(calificacion.calificacion_id))
 
                 td1.innerText = contador;
-                td2.innerText = asignacion.alumno_nombre;
-                td3.innerText = asignacion.materia_nombre;
+                td2.innerText = calificacion.alumno_nombre;
+                td3.innerText = calificacion.materia_asignada;
+               
              
                 
 
 
                 // ESTRUCTURANDO DOM
-                td4.appendChild(buttonModificar)
-                td5.appendChild(buttonEliminar)
+                td6.appendChild(buttonModificar)
+                td7.appendChild(buttonEliminar)
                 tr.appendChild(td1)
                 tr.appendChild(td2)
                 tr.appendChild(td3)
                 tr.appendChild(td4)
                 tr.appendChild(td5)
+                tr.appendChild(td6)
+                tr.appendChild(td7)
                 
 
 
@@ -141,7 +147,7 @@ const buscar = async () => {
             tr.appendChild(td)
             fragment.appendChild(tr);
         }
-        tablaAsignaciones.tBodies[0].appendChild(fragment)
+        tablaCalificaciones.tBodies[0].appendChild(fragment)
 
     } catch (error) {
         console.log(error);
@@ -149,9 +155,9 @@ const buscar = async () => {
 }
 
 const colocarDatos = (datos) => {
-    formulario.asig_alumno.value = datos.alumno_nombre
-    formulario.asig_materia.value = datos.materia_nombre
-    formulario.asig_id.value = datos.asig_id
+    formulario.calificacion_asignacion.value = datos.alumno_nombre
+    formulario.calificaion_asignacion.value = datos.materia_asignada
+    formulario.calificacion_id.value = datos.calificacion_id
 
     btnGuardar.disabled = true
     btnGuardar.parentElement.style.display = 'none'
@@ -185,7 +191,7 @@ const modificar = async () => {
     }
 
     const body = new FormData(formulario)
-    const url = '/final_IS2_moralesbatz/API/asignaciones/modificar';
+    const url = '/final_IS2_moralesbatz/API/calificaciones/modificar';
     const headers = new Headers();
     headers.append("X-Requested-With","fetch");
     const config = {
@@ -232,8 +238,8 @@ const modificar = async () => {
 const eliminar = async (id) => {
     if (await confirmacion('warning', 'Desea elminar este registro?')) {
         const body = new FormData()
-        body.append('asig_id', id)
-        const url = '/final_IS2_moralesbatz/API/asignaciones/eliminar';
+        body.append('calificacion_id', id)
+        const url = '/final_IS2_moralesbatz/API/calificaciones/eliminar';
         const headers = new Headers();
         headers.append("X-Requested-With","fetch");
         const config = {
@@ -279,7 +285,7 @@ const eliminar = async (id) => {
         }
     }
 }
-// buscar();
+buscar();
 formulario.addEventListener('submit', guardar)
  btnBuscar.addEventListener('click', buscar)
 btnCancelar.addEventListener('click', cancelarAccion)
